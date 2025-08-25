@@ -496,6 +496,15 @@ async def userinfo(interaction: Interaction, user: discord.Member):
     embed.add_field(name="اکانت ساخته شده در", value=user.created_at.strftime("%Y-%m-%d %H:%M:%S"), inline=True)
     embed.add_field(name="رول‌ها", value=", ".join([r.name for r in user.roles if r.name != "@everyone"]), inline=False)
     await interaction.response.send_message(embed=embed)
-TOKEN = "MTQwMzI3MDY5NjI3MjEzODM4MA.GJyJMm.vDwgGQosmVb3OSwXgwdmCqBv47Rv6ExJNG6RzM"
-bot.run(TOKEN)
+    
+# ---------- اجرای بات ----------
+TOKEN = os.environ['TOKEN']  # از Environment Variable گرفته می‌شود
 
+@bot.event
+async def on_ready():
+    load_config()
+    load_warns()
+    await bot.tree.sync()
+    print(f"{bot.user} آنلاین شد! (ID: {bot.user.id})")
+
+bot.run(TOKEN)
