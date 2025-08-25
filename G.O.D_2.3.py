@@ -498,6 +498,13 @@ async def userinfo(interaction: Interaction, user: discord.Member):
     await interaction.response.send_message(embed=embed)
 
 # ---------- اجرای بات ----------
-TOKEN = "توکن_بات_تو_اینجا_بذار"
+
+TOKEN = os.environ['TOKEN']
+
+bot = commands.Bot(command_prefix="!")
+
+@bot.event
+async def on_ready():
+    print(f"{bot.user} آنلاین شد!")
 
 bot.run(TOKEN)
